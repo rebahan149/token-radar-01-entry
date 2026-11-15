@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Launch Radar — the pre-token board</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="masthead">
+  <div class="masthead-in">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div>
+        <h1>Launch Radar</h1>
+        <p class="tagline">Every protocol that records no token yet, ranked by what its launch would be worth — and what to do about it.</p>
+      </div>
+    </div>
+    <div class="masthead-meta">
+      <div class="meta-line" id="meta-source">Snapshot: —</div>
+      <div class="meta-line dim" id="meta-model">Model: —</div>
+    </div>
+  </div>
+  <div class="stat-strip" id="stat-strip"></div>
+</header>
+
+<nav class="toolbar" aria-label="Board controls">
+  <div class="toolbar-in">
+    <div class="seg" role="tablist" aria-label="View">
+      <button type="button" class="seg-btn is-on" data-view="board">Board</button>
+      <button type="button" class="seg-btn" data-view="comps">Comps check</button>
+      <button type="button" class="seg-btn" data-view="method">Research note</button>
+    </div>
+    <label class="ctl grow">Search
+      <input type="search" id="f-search" placeholder="Protocol name or slug">
+    </label>
+    <label class="ctl">Category
+      <select id="f-category"><option value="">All categories</option></select>
+    </label>
+    <label class="ctl">Verdict
+      <select id="f-verdict">
+        <option value="">Farm, thin or skip</option>
+        <option value="farm">Farm</option>
+        <option value="thin">Thin</option>
+        <option value="skip">Skip</option>
+      </select>
+    </label>
+    <label class="ctl">Chain
+      <select id="f-chain"><option value="">Any first chain</option></select>
+    </label>
+    <label class="ctl">Sort
+      <select id="f-sort">
+        <option value="value">Implied value</option>
+        <option value="tvl">TVL</option>
+        <option value="net">Net of cost</option>
+        <option value="growth">7d growth</option>
+        <option value="age">Age, oldest first</option>
+      </select>
+    </label>
+    <label class="ctl check">
+      <input type="checkbox" id="f-watch"> Watchlist only
+    </label>
+  </div>
+  <div class="toolbar-sub"><span id="result-count"></span><span class="dim" id="band-note"></span></div>
+</nav>
+
+<main>
+  <section id="view-board">
+    <div class="table-wrap">
+      <table class="board" id="board-table">
+        <thead>
+          <tr>
+            <th class="num">#</th>
+            <th>Protocol</th>
+            <th>Category</th>
+            <th class="num">TVL</th>
+            <th class="num">7d</th>
+            <th class="num">Age</th>
+            <th>Implied value, with its band</th>
+            <th class="num">Season cost</th>
+            <th class="num">Net</th>
+            <th>Verdict</th>
+          </tr>
+        </thead>
+        <tbody id="board-body"></tbody>
+      </table>
+    </div>
+    <p class="foot-note">A row's band is its implied value widened by the value model's out-of-sample error, measured on protocols the fit never saw. The verdict prices the band's low end against one 90-day season of farming. Select any row for its detail: the comps behind its value, its farm plan and its verdict's reasoning.</p>
+  </section>
+
+  <section id="view-comps" hidden>
+    <div class="prose">
+      <h2>The comps check: the model against the market's own values</h2>
+      <p id="comps-intro"></p>
+    </div>
+    <div class="table-wrap">
+      <table class="board" id="comps-table">
+        <thead>
+          <tr>
+            <th>Protocol</th>
+            <th>Category</th>
+            <th class="num">TVL</th>
+            <th class="num">Market cap, actual</th>
+            <th class="num">Model's fitted value</th>
+            <th>Actual / fitted</th>
+          </tr>
+        </thead>
+        <tbody id="comps-body"></tbody>
+      </table>
+    </div>
+    <p class="foot-note">A ratio of 1.0 means the market prices the protocol exactly where the model puts it. The spread of these ratios is the honest uncertainty every band on the board carries.</p>
+  </section>
+
+  <section id="view-method" hidden>
+    <article class="prose" id="method-body"></article>
+  </section>
+</main>
+
+<aside class="drawer" id="drawer" hidden aria-label="Protocol detail">
+  <div class="drawer-in" id="drawer-in"></div>
+</aside>
+<div class="scrim" id="scrim" hidden></div>
+
+<footer class="colophon">
+  <p>Built from one sealed DefiLlama snapshot. A protocol here <em>records no token</em> in that snapshot's record; a record is not proof, and a launch value is this board's own claim, not a prediction that a token will be issued. Figures are the program's, computed from the snapshot alone.</p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
